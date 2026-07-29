@@ -1,4 +1,6 @@
 package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -6,6 +8,7 @@ import org.firstinspires.ftc.teamcode.util.HardwareNames;
 //Import the Dashboard classes
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+@Disabled
 @TeleOp(name = "Dashboard Testing", group = "Tests")
 public class s3_test_dashboard extends LinearOpMode {
     @Override
