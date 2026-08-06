@@ -1,11 +1,9 @@
 package org.firstinspires.ftc.teamcode.util;
 
 public class PIDController {
-
     private double kP, kI, kD;
     private double integralSum = 0;
     private double lastError = 0;
-    private double lastMeasurement = 0;
     private double integralClamp = 1000;
     private double outputClamp = 1.0;
     private boolean firstUpdate = true;
@@ -35,16 +33,13 @@ public class PIDController {
     public void reset() {
         integralSum = 0;
         lastError = 0;
-        lastMeasurement = 0;
         firstUpdate = true;
         pTerm = 0;
         iTerm = 0;
         dTerm = 0;
     }
 
-    // Derivative-on-measurement: pass the actual sensor reading so the
-    // D-term does not spike when the target setpoint changes suddenly.
-    public double update(double error, double measurement, double dt) {
+    public double update(double error, double dt) {
         if (dt <= 0) dt = 0.001;
 
         pTerm = kP * error;
@@ -57,11 +52,10 @@ public class PIDController {
             dTerm = 0;
             firstUpdate = false;
         } else {
-            dTerm = -kD * (measurement - lastMeasurement) / dt;
+            dTerm = kD * (error - lastError) / dt;
         }
 
         lastError = error;
-        lastMeasurement = measurement;
 
         double output = pTerm + iTerm + dTerm;
         return Math.max(-outputClamp, Math.min(outputClamp, output));
